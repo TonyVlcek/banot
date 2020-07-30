@@ -1,0 +1,44 @@
+parameters:
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+extensions:
+	monolog: Contributte\Monolog\DI\MonologExtension
+	translation: Contributte\Translation\DI\TranslationExtension
+	banot: App\DI\Banot\BanotExtension
+
+monolog:
+	channel:
+			default:
+				handlers:
+					- Monolog\Handler\StreamHandler('php://stdout')
+				processors:
+					-  Monolog\Processor\MemoryPeakUsageProcessor()
+
+translation:
+		locales:
+			whitelist: [en, cs]
+			default: cs
+			fallback: [cs]
+		dirs:
+			- %appDir%/lang
+
+banot:
+	url: %banot.url%		#NETTE__BANOT__URL
+	apiKey: %banot.apikey%	#NETTE__BANOT__APIKEY
+
+services:
+	- App\UI\Form\FormFactory
+
+	- App\UI\Control\IItemListControlFactory
+	- App\UI\Control\IItemCardControlFactory
+
+	router: App\Router\RouterFactory::createRouter

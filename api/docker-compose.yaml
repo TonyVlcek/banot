@@ -1,0 +1,44 @@
+version: '3.6'
+services:
+    banot-api:
+        image: banot/api:latest
+        build: .
+        ports:
+            - 8200:80
+        volumes:
+            - ./:/app
+        environment:
+            - PHP_IDE_CONFIG=serverName=myapp
+            - XDEBUG_CONFIG=remote_host=172.17.0.1
+        external_links:
+            - scraper
+        networks:
+            - banot_scraper_default
+            - elastic
+
+    elasticsearch:
+        build: .docker/elastic
+        image: banot/elastic:latest
+        environment:
+            - http.host=0.0.0.0
+            - transport.host=127.0.0.1
+            - xpack.security.enabled=false
+        ports:
+            - 9200:9200
+        networks:
+            - elastic
+
+    kibana:
+        image: kibana:7.6.2
+        ports:
+            - 5601:5601
+        depends_on:
+            - elasticsearch
+        networks:
+            - elastic
+
+networks:
+    banot_scraper_default:
+        external: true
+    elastic:
+        driver: bridge

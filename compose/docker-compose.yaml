@@ -1,0 +1,114 @@
+version: '3.6'
+
+services:
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbit
+        ports:
+            - ${RABBIT_MANAGEMENT_PORT}:15672
+            - ${RABBIT_AMPQ_PORT}:5672
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:${RABBIT_MANAGEMENT_PORT}"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+        volumes:
+            - ${ROOT_SCRAPER}/rabbitmq-data:/var/lib/rabbitmq
+
+    list-scraper:
+        image: banot/scraper:latest
+        build: .
+        entrypoint:
+            - ./bin/consume
+            - list-pages
+            - -vv
+        env_file:
+            - ${ROOT_SCRAPER}/.env
+        environment:
+            PHP_IDE_CONFIG: "serverName=docker_banot_scraper"
+            XDEBUG_CONFIG: "remote_host=172.17.0.1"
+        volumes:
+            - ${ROOT_SCRAPER}/:/usr/src/scraper
+        depends_on:
+            - rabbitmq
+        links:
+            - rabbitmq
+            - api
+
+    detail-scraper:
+        image: banot/scraper:latest
+        build: .
+        entrypoint:
+            - ./bin/consume
+            - detail-pages
+            - -vv
+        env_file:
+            - ${ROOT_SCRAPER}/.env
+        environment:
+            PHP_IDE_CONFIG: "serverName=docker_banot_scraper"
+            XDEBUG_CONFIG: "remote_host=172.17.0.1"
+        volumes:
+            - ${ROOT_SCRAPER}/:/usr/src/scraper
+        depends_on:
+            - rabbitmq
+        links:
+            - rabbitmq
+            - api
+
+    api:
+        build: ${ROOT_API}
+        image: banot/api:latest
+        container_name: api
+        env_file:
+            - ${ROOT_API}/.env
+        ports:
+            - ${API_HTTP_PORT}:80
+            - ${API_HTTPS_PORT}:443
+        volumes:
+            - ${ROOT_API}/:/app
+        links:
+            - rabbitmq
+
+    elasticsearch:
+        build: ${ROOT_API}/.docker/elastic
+        image: banot/elastic:latest
+        environment:
+            - http.host=0.0.0.0
+            - transport.host=127.0.0.1
+            - xpack.security.enabled=false
+        ports:
+            - ${ELASTICSEARCH_PORT}:9200
+
+    kibana:
+        image: kibana:7.6.2
+        ports:
+            - ${KIBANA_PORT}:5601
+        depends_on:
+            - elasticsearch
+
+    mysql:
+        image: mysql:5.7
+        container_name: mysql
+        env_file:
+            - ./mysql/mysql.env
+        volumes:
+            - ./mysql/:/docker-entrypoint-initdb.d
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        ports:
+            - 3307:3306
+
+    web:
+        build: ${ROOT_WEB}
+        image: banot/web:latest
+        ports:
+            - ${WEB_HTTP_PORT}:80
+            - ${WEB_HTTPS_PORT}:443
+        env_file:
+            - ${ROOT_WEB}/.env
+        volumes:
+            - ${ROOT_WEB}/:/app
+        depends_on:
+            - api
+
+volumes:
+    rabbitmq-data:

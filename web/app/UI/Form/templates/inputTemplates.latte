@@ -1,0 +1,59 @@
+{define input}
+	{varType string $name}
+	{varType string $addonBefore}
+	{varType string $addonAfter}
+	{varType \Nette\Forms\Controls\BaseControl $input}
+
+	{var $input = $form[$name]}
+	{var $classes = $classes ?? ''}
+	{var $errorClass = $input->error ? 'is-invalid' : ''}
+	{var $width = $width ?? 12}
+	{var $description = $input->getOption('description')}
+	{var $isInputGroup = (!empty($addonBefore) || !empty($addonAfter))}
+	{default $disabled = $input->isDisabled()}
+
+
+	{dump $input->error}
+
+	<div class="form-group col-md-{$width}">
+		{label $name}
+			{if $input->getLabel()}{$input->getLabel()->getText()}{/if}
+		{/label}
+		{*<label for="validationServer05">Zip</label>*}
+
+		{input $name disabled => $disabled, class => 'form-control is-invalid'}
+		{*<input type="text" class="form-control is-invalid" id="validationServer05" placeholder="Zip" required>*}
+
+		<div class="invalid-feedback" n:if="$input->error">
+			{inputError $name}
+		</div>
+
+		<small class="form-text text-muted" n:if="$description">
+			{$description}
+		</small>
+	</div>
+
+
+
+	{*<div class="app-frm-cnt col-md-{$width} {$classes}"> {*n:class can't be used because the other class contains variable
+		{label $name}
+			{if $input->getLabel()}{$input->getLabel()->getText()}{/if} <sup n:if="$input->isRequired()" class="label-required"><i class="fa fa-asterisk" data-toggle="tooltip" data-html="true" title="This field is required"></i></sup>
+		{/label}
+
+		{if $isInputGroup}
+		<div class="input-group">
+			<span class="input-group-addon" n:ifset="$addonBefore">{$addonBefore}</span>
+			{/if}
+			{input $name disabled => $disabled}
+			{if $isInputGroup}
+			<span class="input-group-addon" n:ifset="$addonAfter">{$addonAfter}</span>
+		</div>
+		{/if}
+		<span class="help-block" n:if="$errorClass">
+			<i class="fa fa-times"></i> {inputError $name}
+		</span>
+		<span class="help-block" style="color: #b8b4b4;" n:if="$description">
+			{$description}
+		</span>
+	</div>*}
+{/define}

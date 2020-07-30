@@ -1,0 +1,67 @@
+{varType int $count}
+{varType array $items}
+{varType App\Search\Documents\Item $item}
+{varType string $email}
+{varType string $name}
+{varType string $query}
+{varType \DateTimeInterface $lastNotified}
+{varType string $link}
+
+{layout './@layout.latte'}
+
+{block #content}
+	{capture $newlyFoundPluralized}
+		{if $count === 1}
+			1 nový předmět
+		{elseif $count > 1 && $count < 5}
+			{$count} nové předměty
+		{else}
+			{$count} nových předmětů
+		{/if}
+	{/capture}
+
+	<h1>
+		{$newlyFoundPluralized|capitalize}
+	</h1>
+	<p>
+		Od poslední notifikace <i>({$lastNotified|date:'j. n. y'})</i> našel Banot {$newlyFoundPluralized}
+		pro vaše hledání <code style="color: red;">{$query}</code>.
+		<br>
+	</p>
+
+	<h2 n:if="$count < 6">Nalezené předměty</h2>
+	<h2 n:if="$count >= 6">Top 5 nalezených předmětů</h2>
+
+	{foreach $items as $item}
+		<hr>
+		<h2><b><a href="{$item->getUrl()}">{$item->getTitle()}</a></b></h2>
+		<p style="color:#333333">
+			{$item->getDescription()|truncate:250}
+		</p>
+		<a href="{$item->getUrl()}">Otevřít detail ></a>
+	{/foreach}
+
+	<hr>
+
+	<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+		<tbody>
+		<tr>
+			<td align="center">
+				<table role="presentation" border="0" cellpadding="0" cellspacing="0">
+					<tbody>
+					<tr>
+						<td> <a href="{$link}" target="_blank">Zobrazit celý Report</a> </td>
+					</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+
+	<p style="color: gray; text-align: center;">
+		Svůj report můžete najít pomocí svého emailu <i>{$email}</i> a jména reportu <i>{$name}</i>.
+		<br>
+		<a href="{$link}" target="_blank"><i>{$link}</i></a>
+	</p>
+{/block}

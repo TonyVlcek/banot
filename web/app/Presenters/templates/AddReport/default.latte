@@ -1,0 +1,19 @@
+{varType string $query}
+{varType int $totalCount}
+
+{block #content}
+
+<div class="py-5 my-5 container">
+	<a n:href="Search:, query => $query">
+		<i class="fa fa-angle-left"></i>
+		{_loc.add_report.back_to_search}
+	</a>
+	<br><br><br>
+
+	{_loc.add_report.query} <code>{$query}</code><br>
+	{_loc.add_report.total_count, [count => $totalCount]}
+
+	<br><br><br>
+
+	{control addReportForm}
+</div>

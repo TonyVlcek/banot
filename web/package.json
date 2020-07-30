@@ -1,0 +1,22 @@
+{
+	"name": "banot-web",
+	"version": "1.0.0",
+	"author": "Tony Vlček",
+	"license": "MIT",
+	"dependencies": {
+		"@fortawesome/fontawesome-free": "^5.13.0",
+		"bootstrap": "^4.5.0",
+		"core-js": "^3.6.5",
+		"jquery": "^3.5.1",
+		"naja": "^1.8.3",
+		"nette-forms": "^3.0.4",
+		"popper.js": "^1.16.1"
+	},
+	"devDependencies": {
+		"@symfony/webpack-encore": "^0.30.2",
+		"cross-env": "^7.0.2",
+		"node-sass": "^4.14.1",
+		"sass-loader": "^8.0.0",
+		"webpack-notifier": "^1.6.0"
+	}
+}

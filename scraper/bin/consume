@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Banot\Scraper\Command\ConsumeDetailPages;
+use Banot\Scraper\Command\ConsumeListPages;
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+
+$application->add(new ConsumeDetailPages());
+$application->add(new ConsumeListPages());
+
+exit($application->run());

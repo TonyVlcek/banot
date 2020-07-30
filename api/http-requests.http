@@ -1,0 +1,217 @@
+## ITEMS ============================================================
+
+GET http://localhost:8300/api/v1/items?query=kolo&size=10
+###
+
+# Invalid query
+GET http://localhost:8300/api/v1/items?query={}&size=10
+###
+
+
+POST http://localhost:8300/api/v1/items/need-scraping
+Content-Type: application/json
+
+[
+	"https://www.cyklobazar.cz/inzerat/387462/apache-gila-monster",
+	"https://www.cyklobazar.cz/inzerat/259824/silnicni-kolo-spyder-pro-postavu-do-165cm",
+	"new-url.cz"
+]
+###
+
+PUT http://localhost:8300/api/v1/items
+Content-Type: application/json
+
+{
+	"url": "https://www.cyklobazar.cz/inzerat/436019/brand-new-2020-trek-emonda-sl-6-disc-pro-road-bike-for-sale",
+	"photoUrl": "https://www.cyklobazar.cz/uploads/items/_/2020/6/30/436019/2020-trek-emonda-sl6.-1_ef8131257.jpg",
+	"title": "Nabídka: silniční kolo Specialized Tarmac kolo shimano",
+	"description": "Etincidunt quiquia non dolore aliquam eius magnam. Sit amet quiquia sed sit sed porro. Quaerat sed quiquia voluptatem quiquia etincidunt magnam. Dolor sit tempora tempora voluptatem magnam. Non neque non velit porro aliquam ut porro.",
+	"price": "55000",
+	"published": "2001-01-12 20:00:32",
+	"labels": {
+		"Stav": "Nové",
+		"Kraj": "Jihočeský",
+		"Okres": "České Budějovice",
+		"Materiál": "Karbon"
+	}
+}
+###
+
+
+## REPORTS ==========================================================
+
+POST http://localhost:8300/api/v1/reports
+Content-Type: application/json
+
+{
+	"email": "banot@mailinator.com",
+	"query": "kolo +shimano",
+	"frequency": 24
+}
+###
+
+GET http://localhost:8300/api/v1/reports/banot@mailinator.com/red-ape-243
+###
+
+GET http://localhost:8300/api/v1/reports/banot@mailinator.com
+###
+
+
+## NOTIFICATIONS ====================================================
+
+POST http://localhost:8300/api/v1/notify/banot@mailinator.com/red-ape-243
+POST http://localhost:8300/api/v1/reports/banot@mailinator.com/red-ape-243/notify
+POST http://localhost:8300/api/v1/reports/notify
+###
+
+POST http://localhost:8300/api/v1/notify
+###
+
+
+## WEB RESOURCES ====================================================
+
+GET http://localhost:8300/api/v1/resources
+###
+
+GET http://localhost:8300/api/v1/resources/sbazar
+###
+
+DELETE http://localhost:8300/api/v1/resources/sbazar
+###
+
+# CREATE SBAZAR
+POST http://localhost:8300/api/v1/resources
+Content-Type: application/json
+
+{
+	"url": "https://sbazar.cz/",
+	"name": "sbazar",
+	"instructions": [
+		{
+			"name": "nextUrl",
+			"target": "list",
+			"type": "link",
+			"selector": ".c-prev-next .atm-button.c-prev-next__link[data-dot=next]"
+		},
+		{
+			"name": "detailsUrls",
+			"target": "list",
+			"type": "links",
+			"selector": ".c-item-list .c-item__link"
+		},
+
+		{
+			"name": "photoUrl",
+			"target": "detail",
+			"type": "attr",
+			"selector": ".ob-c-carousel.ob-c-gallery__carousel img.ob-c-gallery__img:first-of-type",
+			"attribute": "src"
+		},
+		{
+			"name": "title",
+			"target": "detail",
+			"type": "text",
+			"selector": "h1.p-uw-item__header"
+		},
+		{
+			"name": "description",
+			"target": "detail",
+			"type": "text",
+			"selector": ".p-uw-item__detail-main p.p-uw-item__description"
+		},
+		{
+			"name": "price",
+			"target": "detail",
+			"type": "text",
+			"selector": "span.c-price b.c-price__price"
+		},
+		{
+			"name": "published",
+			"target": "detail",
+			"type": "attr",
+			"selector": "span.p-uw-item__detail-info[datetime]",
+			"attribute": "datetime"
+		},
+		{
+			"name": "location",
+			"target": "detail",
+			"type": "text",
+			"selector": ".p-uw-item__detail-info a.p-uw-item__link"
+		}
+	],
+	"rootPages": [
+		{
+			"url": "https://www.sbazar.cz/628-kola",
+			"name": "Kola"
+		},
+		{
+			"url": "https://www.sbazar.cz/85-motocykly",
+			"name": "Motorky"
+		}
+	]
+}
+
+###
+
+# CREATE CYKLOBAZAR
+POST http://localhost:8300/api/v1/resources
+Content-Type: application/json
+
+{
+"url": "https://www.cyklobazar.cz/",
+"name": "cyklobazar",
+"instructions": [
+{
+"target": "list",
+"name": "nextUrl",
+"type": "link",
+"selector": "#snippet-vp-paginator link[rel=next]"
+},
+{
+"target": "list",
+"name": "detailsUrls",
+"type": "links",
+"selector": ".offers .offer a.offer__title"
+},
+
+{
+"name": "photoUrl",
+"target": "detail",
+"type": "attr",
+"selector": ".owl-item img.img-responsive",
+"attribute": "src"
+},
+{
+"name": "title",
+"target": "detail",
+"type": "text",
+"selector": ".page-header h1"
+},
+{
+"name": "description",
+"target": "detail",
+"type": "text",
+"selector": ".detail__desc"
+},
+{
+"name": "price",
+"target": "detail",
+"type": "text",
+"selector": ".detail__table__price"
+}
+],
+"rootPages": [
+{
+"url": "https://www.cyklobazar.cz/kola",
+"name": "Kola"
+}
+]
+}
+###
+
+
+POST http://localhost:8300/api/v1/resources/scrape
+###
+
+POST http://localhost:8300/api/v1/resources/sbazar/scrape
+###

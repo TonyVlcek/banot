@@ -1,0 +1,163 @@
+extensions:
+	middlewares: Contributte\Middlewares\DI\MiddlewaresExtension
+	resource: Contributte\DI\Extension\ResourceExtension
+	api: Apitte\Core\DI\ApiExtension
+	elasticsearch: Contributte\Elasticsearch\DI\ElasticsearchExtension
+	monolog: Contributte\Monolog\DI\MonologExtension
+	mailgun: App\DI\Mailgun\MailgunExtension
+	rabbitmq: Contributte\RabbitMQ\DI\RabbitMQExtension
+	dbal: Nextras\Dbal\Bridges\NetteDI\DbalExtension
+	migrations: Nextras\Migrations\Bridges\NetteDI\MigrationsExtension
+	orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
+	console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
+
+middlewares:
+	middlewares:
+		-
+			class: Contributte\Middlewares\TryCatchMiddleware
+			setup:
+				- setCatchExceptions(true) # affect if exceptions are catched in debug mode (they are always catched in production mode)
+				- setDebugMode(%debugMode%)
+				- setLogger(@Psr\Log\LoggerInterface, Psr\Log\LogLevel::ERROR)
+		- Apitte\Middlewares\ApiMiddleware
+		- Contributte\Middlewares\AutoBasePathMiddleware
+		- Contributte\Middlewares\TryCatchMiddleware
+		#- App\Api\Middlewares\ApiKeyAuthenticationMiddleware
+
+resource:
+	resources:
+		App\Api\Controllers\:
+			paths: [%appDir%/Api/Controllers]
+			decorator:
+				inject: true
+		App\Api\Middlewares\:
+			paths: [%appDir%/Api/Middlewares]
+			decorator:
+				inject: true
+
+api:
+	catchException: true # set to false to see exceptions in debug mode
+	debug: %debugMode%
+	plugins:
+		Apitte\Core\DI\Plugin\CoreDecoratorPlugin:
+		Apitte\Core\DI\Plugin\CoreMappingPlugin:
+			request:
+				validator: Apitte\Core\Mapping\Validator\BasicValidator
+		Apitte\Debug\DI\DebugPlugin:
+		Apitte\Middlewares\DI\MiddlewaresPlugin:
+			tracy: false
+			autobasepath: false
+		Apitte\OpenApi\DI\OpenApiPlugin:
+
+elasticsearch:
+	hosts:
+		- 'elasticsearch' #%elastic.host%	# NETTE__ELASTIC__HOST
+
+monolog:
+	channel:
+			default:
+				handlers:
+					- Monolog\Handler\StreamHandler('php://stdout')
+				processors:
+					-  Monolog\Processor\MemoryPeakUsageProcessor()
+
+mailgun:
+	domain: %mailgun.domain%	# NETTE__MAILGUN__DOMAIN
+	apiKey: %mailgun.apikey%	# NETTE__MAILGUN__APIKEY
+
+rabbitmq:
+	connections:
+		default:
+			user: %rabbit.user%			# NETTE__RABBIT__USER
+			password: %rabbit.password%	# NETTE__RABBIT__PASSWORD
+			host: %rabbit.host%			# NETTE__RABBIT__HOST
+			port: %rabbit.port%			# NETTE__RABBIT__PORT
+			lazy: false
+
+	queues:
+		LPQ:
+			connection: default
+
+	producers:
+		listPageProducer:
+			queue: LPQ
+			contentType: application/json
+			deliveryMode: 2 # Producer::DELIVERY_MODE_PERSISTENT
+
+dbal:
+	connectionTz: auto
+	driver: mysqli
+	host: %mysql.host%				# NETTE__MYSQL__HOST
+	port: ::intval(%mysql.port%)	# NETTE__MYSQL__PORT
+	username: %mysql.username%		# NETTE__MYSQL__USERNAME
+	password: %mysql.password%		# NETTE__MYSQL__PASSWORD
+	database: %mysql.database%		# NETTE__MYSQL__DATABASE
+	charset: utf8mb4
+
+orm:
+	model: App\Orm\Orm
+
+migrations:
+	dir: %appDir%/../db
+	driver: mysql
+	dbal: nextras
+
+services:
+	## Serialize =============
+	symfony.serializer.serializer:
+		factory: Symfony\Component\Serializer\Serializer
+		arguments:
+			normalizers:
+				- Symfony\Component\Serializer\Normalizer\DateTimeNormalizer()
+				- Symfony\Component\Serializer\Normalizer\ArrayDenormalizer()
+				- @symfony.serializer.objectNormalizer
+			encoders:
+				- Symfony\Component\Serializer\Encoder\JsonEncoder()
+
+	symfony.serializer.objectNormalizer:
+		factory: Symfony\Component\Serializer\Normalizer\ObjectNormalizer(
+			classMetadataFactory: @symfony.serializer.classMetadataFactory,
+			propertyAccessor: null,
+			propertyTypeExtractor: Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor()
+		)
+		autowired: false
+
+	symfony.serializer.classMetadataFactory:
+		factory: Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory(@symfony.serializer.annotationLoader)
+		autowired: false
+
+	symfony.serializer.annotationLoader:
+		factory: Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader(
+			Doctrine\Common\Annotations\CachedReader(
+				@symfony.serializer.annotationReader,
+				Doctrine\Common\Cache\FilesystemCache(%tempDir%/cache/Symfony.Serializer)
+			)
+		)
+		autowired: false
+
+	symfony.serializer.annotationReader:
+		factory: Doctrine\Common\Annotations\AnnotationReader
+		autowired: false
+		setup:
+			- addGlobalIgnoredName(phpcsSuppress)
+
+	## Apitte =============
+	api.core.dispatcher: App\Api\Dispatchers\SymfonySerializedResponseDispatcher
+
+
+	## App =============
+	- App\Search\SearchService
+	- App\Search\ItemsIndex
+
+	- App\Services\MailSender\MailSender(%tempDir%,...)
+
+	- App\Facades\ItemFacade
+	- App\Facades\NotificationFacade
+	- App\Facades\ReportFacade
+	- App\Facades\ScrapingFacade
+	- App\Facades\WebResourceFacade
+
+	- App\Model\Instruction\InstructionFactory
+	- App\Model\RootPage\RootPageFactory
+
+	- App\Queues\ListPageQueue(@Contributte\RabbitMQ\Client::getProducer(listPageProducer))

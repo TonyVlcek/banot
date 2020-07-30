@@ -1,0 +1,54 @@
+layout:
+	back_to_top: "Zpět nahoru"
+	nav:
+		home: "Domů"
+		search: "Hledej"
+
+homepage:
+	banner:
+		title: "BANOT"
+		description: "CZ: Etincidunt labore dolor labore etincidunt etincidunt."
+		button_search: "Hledej"
+		button_show_report: "Zobraz Report"
+
+	view_report:
+		title: "Zobraz Report"
+
+	story:
+		title: "Příběh"
+		abstract: "Etincidunt consectetur etincidunt ut velit neque aliquam est. Modi sed est modi etincidunt sit labore ut. Est voluptatem sit consectetur. Quaerat sit aliquam porro dolor eius. Sed dolore amet magnam tempora modi sit. Dolorem quaerat quisquam consectetur.\n\nPorro voluptatem eius quiquia eius aliquam ipsum. Quisquam quiquia sed velit tempora neque voluptatem. Non quiquia adipisci dolor. Quiquia eius quisquam sit adipisci amet eius. Quiquia quiquia sit quisquam magnam velit. Adipisci quiquia ipsum neque quiquia. Adipisci non numquam aliquam sit est amet.\n\nAliquam dolore numquam magnam quaerat non est aliquam. Consectetur modi porro dolore. Consectetur etincidunt dolore eius sed sit dolorem porro. Tempora quisquam velit ut. Amet dolor quiquia modi voluptatem. Aliquam quiquia quiquia velit quisquam quaerat velit amet. Velit neque ipsum aliquam dolorem.\n\nNumquam quiquia etincidunt ut tempora non consectetur quiquia. Ipsum modi quisquam neque. Dolor labore numquam consectetur sed labore adipisci. Magnam aliquam modi modi ipsum neque. Sed magnam amet neque velit magnam. Non dolorem dolorem sed. Adipisci est sit dolore magnam aliquam. Numquam dolor voluptatem velit quiquia numquam. Quaerat aliquam etincidunt tempora dolor adipisci velit."
+
+form_search:
+	search: "Hledej"
+	query: "Dotaz"
+
+form_find_report:
+	email_placeholder: "alcapone@email.cz"
+	name_placeholder: "silly-lion-123"
+	open_button: "Zobrazit"
+
+add_report:
+	back_to_search: "Zpět na hledání"
+	query: "Vyhledávaný dotaz"
+	total_count: "{1} Celkem nalezen 1 předmět|[2,4] Celkem nalezeny %count% předměty|[5,Inf[ Celkem nalezeno %count% předmětů"
+	success:
+			heading: "Report vytvořen!"
+			next_report_in: "{0} Notifikace budete dostávat hnad jakmile se objeví něco nového.|{24} Notifikace budete dostávat jednou za den.|{168} Notifikace budete dostávat jednou za týden."
+			link_description: "Pod tímto odkazem odteď najdete seznam nalezených předmětů."
+			back_to_search: "Zpět na hledání"
+
+form_add_report:
+	email: "Email"
+	frequency: "Frekvence"
+	frequency_options:
+		0_hours: "ASAP"
+		24_hours: "Jednou denně"
+		168_hours: "Jednou týdně"
+	save: Uložit
+
+
+item_list:
+	number_of_results: "{1} Celkem nalezen 1 předmět|[2,4] Celkem nalezeny %count% předměty|[5,Inf[ Celkem nalezeno %count% předmětů"
+	add_report: "Zapnout notifikace"
+	no_results: "Bohužel, pro tento dotaz nebyl nalezen žádný předmět."
+	load_more: "Více"

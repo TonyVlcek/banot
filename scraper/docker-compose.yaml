@@ -1,0 +1,60 @@
+version: '3.6'
+services:
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbit
+        ports:
+            - 15672:15672
+            - 5672:5672
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:15672"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+        volumes:
+            - rabbitmq-data:/var/lib/rabbitmq
+
+    banot-api:
+        image: banot/api:latest
+        container_name: banot-api
+        ports:
+            - 8111:80
+
+    list-scraper:
+        image: banot/scraper:latest
+        build: .
+        entrypoint:
+            - ./bin/consume
+            - list-pages
+            - -vv
+        environment:
+            PHP_IDE_CONFIG: "serverName=docker_banot_scraper"
+            XDEBUG_CONFIG: "remote_host=172.17.0.1"
+        volumes:
+            - ./:/usr/src/scraper
+        depends_on:
+            - rabbitmq
+        links:
+            - rabbitmq
+            - banot-api
+
+    detail-scraper:
+        image: banot/scraper:latest
+        build: .
+        entrypoint:
+            - ./bin/consume
+            - detail-pages
+            - -vv
+        environment:
+            PHP_IDE_CONFIG: "serverName=docker_banot_scraper"
+            XDEBUG_CONFIG: "remote_host=172.17.0.1"
+        volumes:
+            - ./:/usr/src/scraper
+        depends_on:
+            - rabbitmq
+        links:
+            - rabbitmq
+            - banot-api
+
+volumes:
+    rabbitmq-data:

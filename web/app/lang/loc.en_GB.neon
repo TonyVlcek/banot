@@ -1,0 +1,64 @@
+layout:
+	back_to_top: "Back to top"
+	nav:
+		home: "Home"
+		search: "Search"
+
+homepage:
+	banner:
+		title: "BANOT"
+		description: """
+			Banot is a tool to help you search through and be
+			notifed about new items posted in online bazaars.
+		"""
+		button_search: "Search"
+		button_show_report: "Show Report"
+
+#...
+	view_report:
+		title: "Show Report"
+
+	story:
+		title: "Story"
+		abstract: """
+			I bought myself a nice road bike to do my daily commute and some sport on the side. It did not take long before I found myself picking up the remains of my wire lock from where my bike had been parked just an hour ago. Upon arrival, the police officers did not give me much hope and recommended I "conduct my own search" and to look for it online.
+
+			As it turns out, there are many online marketplaces to look through with many new items being posted every day. In some cases the marketplace allows the user to sign up for email notifications when a new item is posted, but this would not help if my bike had already been posted, also even this functionality on its own is rare and on many sites a manual search is the best one can do.
+
+			It might be too late for my bike, however there are more bikes being stolen every day. Also bikes are not the only article of interest: laptops are being stolen from libraries and coffee places, houses are being robbed and there is a good chance that at least some of these items do end up in an online marketplace one way or another.
+		"""
+
+form_search:
+	search: "Search"
+	query: "Query"
+
+form_find_report:
+	email_placeholder: "alcapone@email.com"
+	name_placeholder: "silly-lion-12"
+	open_button: "Show"
+
+add_report:
+	back_to_search: "Back to search"
+	query: "Search query"
+	total_count: "{1} Found 1 item|[2,Inf[ Found %count% items"
+	success:
+			heading: "Report created!"
+			next_report_in: "{0} The notification will be sent as soon as something new shows up.|{24} The notification will be sent once a day.|{168} The noitification will be sent once a week."
+			link_description: "Click this link to see the items that match this query."
+			back_to_search: "Back to search"
+
+form_add_report:
+	email: "Email"
+	frequency: "Frequency"
+	frequency_options:
+		0_hours: "ASAP"
+		24_hours: "Once a day"
+		168_hours: "Once a week"
+	save: Save
+
+
+item_list:
+	number_of_results: "{1} Found 1 item|[2,Inf[ Found %count% items"
+	add_report: "Turn on notifications"
+	no_results: "Hmm, I got nothing ... :("
+	load_more: "Load more"

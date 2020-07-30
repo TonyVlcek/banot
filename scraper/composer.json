@@ -1,0 +1,39 @@
+{
+    "name": "banot/scraper",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tony Vlček",
+            "email": "vlcek.a@email.cz"
+        }
+    ],
+    "require": {
+        "php": ">=7.4.0",
+        "ext-pcntl": "*",
+        "ext-json": "*",
+        "bunny/bunny": "@dev",
+        "symfony/console": "^5.0",
+        "symfony/dom-crawler": "^5.0",
+        "symfony/css-selector": "^5.0",
+        "clue/buzz-react": "^2.7",
+        "banot/banot-php": "@dev"
+    },
+    "require-dev": {
+        "seregazhuk/react-promise-testing": "^0.4.0"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../banot-php/",
+            "options": {
+                "symlink": false
+            }
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Banot\\Scraper\\": "app/"
+        }
+    }
+}

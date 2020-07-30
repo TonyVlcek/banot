@@ -1,0 +1,33 @@
+{varType array $items}
+{varType string $query}
+{varType int $totalCount}
+{varType Banot\SDK\Model\Items\Item $item}
+{varType bool $showLoadMore}
+
+<div n:snippet="empty">
+	<div n:if="count($items) === 0" class="text-center">
+		<img src="/dist/images/no-results.png" alt="{_loc.item_list.no_results}" style="max-width: 700px">
+		<br>
+		<h3 class="text-muted">{_loc.item_list.no_results}</h3>
+	</div>
+</div>
+{if count($items)}
+	<p>
+		{_loc.item_list.number_of_results, [count => $totalCount]}
+		&middot;
+		<a href="{plink AddReport:, query => $query}" class="btn btn-outline-success btn-sm">
+			<i class="fa fa-bell"></i>
+			{_loc.item_list.add_report}
+		</a>
+	</p>
+
+	<div n:snippet="cards">
+		{foreach $items as $item}
+			{var $i = $iterator->counter - 1}
+			{control itemCard-$i}
+		{/foreach}
+	</div>
+	<div class="text-center" n:snippet="loadMore">
+		<a class="btn btn-primary btn-lg ajax" n:href="loadMore!" n:if="$showLoadMore">{_loc.item_list.load_more}</a>
+	</div>
+{/if}

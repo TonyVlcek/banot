@@ -1,0 +1,43 @@
+{
+	"name": "banot/web",
+	"type": "project",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Tony Vlček",
+			"email": "vlcek.a@email.cz"
+		}
+	],
+	"require": {
+		"php": ">= 7.4",
+		"nette/application": "^3.0",
+		"nette/bootstrap": "^3.0",
+		"nette/caching": "^3.0",
+		"nette/di": "^3.0",
+		"nette/finder": "^2.5",
+		"nette/forms": "^3.0",
+		"nette/http": "^3.0",
+		"nette/robot-loader": "^3.0",
+		"nette/security": "^3.0",
+		"nette/utils": "^3.0",
+		"latte/latte": "^2.5",
+		"tracy/tracy": "^2.6",
+		"contributte/monolog": "^0.4.1",
+		"contributte/translation": "^0.6.1",
+		"banot/banot-php": "@dev",
+		"contributte/bootstrap": "^0.4.1"
+	},
+	"repositories": [
+		{
+			"type": "path",
+			"url": "../banot-php/",
+			"options": {
+				"symlink": false
+			}
+		}
+	],
+	"autoload": {
+		"classmap": ["app/Bootstrap.php"]
+	},
+	"minimum-stability": "stable"
+}

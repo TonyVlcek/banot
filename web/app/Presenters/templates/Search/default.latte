@@ -1,0 +1,20 @@
+{block #content}
+
+<div class="container pt-5 mt-5">
+	{form searchForm, class => 'ajax'}
+		<div class="row">
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="fa fa-search"></i></span>
+				</div>
+				{input query}
+				<div class="input-group-append">
+					<input type="submit" class="btn btn-outline-primary" type="button" n:name="search">
+				</div>
+			</div>
+		</div>
+	{/form}
+	<div n:snippet="itemListSnippet">
+		{control itemList}
+	</div>
+</div>

@@ -1,0 +1,26 @@
+{varType Banot\SDK\Model\Items\Item $item}
+{varType string $photo}
+
+<div class="card my-3 search-result">
+	<div class="card-body">
+		<div class="row">
+			<div class="col-xs-6 col-sm-4 col-lg-3">
+				{php $photo = empty($item->getPhotoUrl()) ? '/dist/images/no-photo.svg' : $item->getPhotoUrl()}
+				<img src="{$photo}" alt="Item Photo" class="img-fluid">
+			</div>
+			<div class="col-xs-6 col-sm-8 col-lg-9">
+				<h3 class="title"><a href="{$item->getUrl()}">{$item->getTitle()}</a></h3>
+				<p class="description">{$item->getDescription()}</p>
+				<div class="labels">
+					<span class="badge badge-primary" n:if="$item->getPrice()">price: {$item->getPrice()}</span>
+					<span class="badge badge-primary" n:if="$item->getPublished()">published: {$item->getPublished()|date}</span>
+					<span class="badge badge-primary">last scraped: {$item->getLastScraped()|date}</span>
+					{foreach $item->getLabels() as $key => $value}
+						<span class="badge badge-secondary">{$key}: {$value}</span>
+					{/foreach}
+				</div>
+				<a href="{$item->getUrl()}" target="_blank" class="btn btn-primary mt-3">Open</a>
+			</div>
+		</div>
+	</div>
+</div>

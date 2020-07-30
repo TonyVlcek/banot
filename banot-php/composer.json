@@ -1,0 +1,33 @@
+{
+	"name": "banot/banot-php",
+	"type": "library",
+	"description": "A PHP wrapper for Banot's API",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Tony Vlček",
+			"email": "vlcek.a@email.cz"
+		}
+	],
+	"require": {
+		"php": ">=7.4.0",
+		"ext-pcntl": "*",
+		"ext-json": "*",
+		"clue/buzz-react": "^2.7",
+		"clue/block-react": "^1.3"
+	},
+	"require-dev": {
+		"seregazhuk/react-promise-testing": "^0.4.0",
+		"phpunit/phpunit": "^8.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"Banot\\SDK\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Banot\\SDK\\Tests\\": "src/"
+		}
+	}
+}

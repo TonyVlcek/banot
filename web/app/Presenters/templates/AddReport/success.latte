@@ -1,0 +1,30 @@
+{varType string $email}
+{varType string $name}
+{varType string $query}
+{varType int $frequency}
+
+
+{block #content}
+
+<div class="py-5 my-5 container text-center">
+	<img src="/dist/images/success.png" alt="Success, high five!">
+	<h2 class="text-success">{_loc.add_report.success.heading}</h2>
+
+	<p>
+		{_loc.add_report.success.next_report_in, [count => $frequency]}
+	</p>
+
+	<p class="text-muted">
+		{_loc.add_report.success.link_description}
+	</p>
+
+	<a n:href="ViewReport: email => $email, name => $name" class="btn btn-outline-primary btn-lg"><i class="fa fa-link"></i> {link //ViewReport: email => $email, name => $name}</a>
+
+	<br>
+	<br>
+
+	<a n:href="Search:, query => $query">
+		<i class="fa fa-angle-left"></i>
+		{_loc.add_report.success.back_to_search}
+	</a>
+</div>

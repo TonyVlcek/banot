@@ -1,0 +1,32 @@
+#!/bin/bash
+
+COMMAND="$1"
+ARGS="${@:2}"
+
+__usage="
+Usage: toolkit [COMMAND] [COMMAND OPTIONS]
+
+Command:
+  composer                     Runs composer (prestissimo) in a docker container
+  reload-sdk                   Updates the local version of the banot-php SDK
+
+Command Options:
+Are specific to each command.
+"
+
+case ${COMMAND} in
+    composer )
+        docker run --rm -it -v $PWD:/app -u $(id -u):$(id -g) \
+            clevyr/prestissimo \
+            ${ARGS} \
+            --ignore-platform-reqs
+        ;;
+    reload-sdk )
+        rm -rf ./vendor/banot/
+        composer update banot/banot-php --ignore-platform-reqs
+        ;;
+    * )
+        echo "$__usage"
+esac
+
+

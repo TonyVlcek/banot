@@ -1,0 +1,57 @@
+{import './../../../UI/Form/templates/inputTemplates.latte'}
+
+{block #content}
+
+<section class="jumbotron text-center">
+	<div class="container">
+		<h1 class="jumbotron-heading">{_loc.homepage.banner.title}</h1>
+		<p class="lead text-muted">{_loc.homepage.banner.description}</p>
+		<p>
+			<a n:href="Search:" class="btn btn-primary"><i class="fa fa-search"></i> {_loc.homepage.banner.button_search}</a>
+			<a href="#view-report" class="btn btn-secondary"><i class="fa fa-eye"></i> {_loc.homepage.banner.button_show_report}</a>
+		</p>
+	</div>
+</section>
+
+<div class="py-5 bg-light">
+	<div class="container">
+		<div class="row justify-content-md-center">
+			<div class="col-md-5 text-center">
+				<h1 class="mb-4" id="view-report">{_loc.homepage.view_report.title}</h1>
+
+				{form findReportForm}
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fa fa-at"></i></span>
+						</div>
+						<input type="email" id="inputEmail" class="form-control" n:name="email" placeholder="{_loc.form_find_report.email_placeholder}">
+					</div>
+
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fa fa-hashtag"></i></span>
+						</div>
+						<input type="text" id="inputPassword" class="form-control" n:name="name" placeholder="{_loc.form_find_report.name_placeholder}">
+					</div>
+
+					<button type="submit" n:name="open" class="btn btn-lg btn-primary mt-3">
+						<i class="fa fa-eye"></i>
+						{_loc.form_find_report.open_button}
+					</button>
+				{/form}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="py-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<img src="/dist/images/workflow.png" alt="Teamwork" class="img-fluid">
+				<h1 class="text-center">{_loc.homepage.story.title}</h1>
+				<p class="text-justify">{_loc.homepage.story.abstract|breakLines}</p>
+			</div>
+		</div>
+	</div>
+</div>

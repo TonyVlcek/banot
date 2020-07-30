@@ -1,0 +1,62 @@
+{varType string $name}
+{varType string $email}
+{varType string $query}
+{varType string $frequency}
+{varType string $link}
+
+{layout './@layout.latte'}
+
+{block #title}
+	Notifikace nastaveny - report {$name}
+{/block}
+
+{block #content}
+	<h1>Notifikace nastaveny</h1>
+
+	<p>
+		Pro vaše hledání <code style="color: red;">{$query}</code> byly zapnuty notifikace.
+	</p>
+
+	<p>
+		{if $frequency === 0}
+			Na tento email vám bude zaslána zpráva pokaždé, když budou nalazeny nové předměty, které odpovídají vašemu dotazu.
+		{elseif $frequency === 24}
+			Na tento email vám bude jednou za den zaslána zpráva s přehledem nové nalezených předmětů. Tato zpráva nebude odeslána pokud se nic nového neobjeví :)
+		{elseif $frequency === 168}
+			Na tento email vám bude jednou za týden zaslána zpráva s přehledem nové nalezených předmětů. Tato zpráva nebude odeslána pokud se nic nového neobjeví :)
+		{/if}
+	</p>
+
+	<h2 style="text-align: center;">Report vytvořen</h2>
+
+	<p>
+		Pokud byste seznam nalezených předmětů chtěli průběžně kontrolovat, nebo změnit nastavení notifikací,
+		byl pro vás vytvořen report s tímto jménem:
+	</p>
+
+	<p style="text-align: center; font-weight: bold; font-size: 2em">
+		<code>{$name}</code>
+	</p>
+
+	<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+		<tbody>
+		<tr>
+			<td align="center">
+				<table role="presentation" border="0" cellpadding="0" cellspacing="0">
+					<tbody>
+					<tr>
+						<td> <a href="{$link}" target="_blank">Zobrazit Report</a> </td>
+					</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+
+	<p style="color: gray; text-align: center;">
+		Svůj report můžete najít pomocí svého emailu <i>{$email}</i> a jména reportu <i>{$name}</i>.
+		<br>
+		<a href="{$link}" target="_blank"><i>{$link}</i></a>
+	</p>
+{/block}
