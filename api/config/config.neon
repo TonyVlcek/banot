@@ -23,6 +23,7 @@ middlewares:
 		- Contributte\Middlewares\AutoBasePathMiddleware
 		- Contributte\Middlewares\TryCatchMiddleware
 		#- App\Api\Middlewares\ApiKeyAuthenticationMiddleware
+		- App\Api\Middlewares\CorsMiddleware
 
 resource:
 	resources:

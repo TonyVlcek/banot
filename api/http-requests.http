@@ -45,7 +45,7 @@ Content-Type: application/json
 
 {
 	"email": "banot@mailinator.com",
-	"query": "kolo +shimano",
+	"query": "kolo",
 	"frequency": 24
 }
 ###
@@ -59,14 +59,11 @@ GET http://localhost:8300/api/v1/reports/banot@mailinator.com
 
 ## NOTIFICATIONS ====================================================
 
-POST http://localhost:8300/api/v1/notify/banot@mailinator.com/red-ape-243
 POST http://localhost:8300/api/v1/reports/banot@mailinator.com/red-ape-243/notify
+###
+
 POST http://localhost:8300/api/v1/reports/notify
 ###
-
-POST http://localhost:8300/api/v1/notify
-###
-
 
 ## WEB RESOURCES ====================================================
 
@@ -158,54 +155,53 @@ POST http://localhost:8300/api/v1/resources
 Content-Type: application/json
 
 {
-"url": "https://www.cyklobazar.cz/",
-"name": "cyklobazar",
-"instructions": [
-{
-"target": "list",
-"name": "nextUrl",
-"type": "link",
-"selector": "#snippet-vp-paginator link[rel=next]"
-},
-{
-"target": "list",
-"name": "detailsUrls",
-"type": "links",
-"selector": ".offers .offer a.offer__title"
-},
-
-{
-"name": "photoUrl",
-"target": "detail",
-"type": "attr",
-"selector": ".owl-item img.img-responsive",
-"attribute": "src"
-},
-{
-"name": "title",
-"target": "detail",
-"type": "text",
-"selector": ".page-header h1"
-},
-{
-"name": "description",
-"target": "detail",
-"type": "text",
-"selector": ".detail__desc"
-},
-{
-"name": "price",
-"target": "detail",
-"type": "text",
-"selector": ".detail__table__price"
-}
-],
-"rootPages": [
-{
-"url": "https://www.cyklobazar.cz/kola",
-"name": "Kola"
-}
-]
+	"url": "https://www.cyklobazar.cz/",
+	"name": "cyklobazar",
+	"instructions": [
+		{
+			"target": "list",
+			"name": "nextUrl",
+			"type": "link",
+			"selector": "#snippet-vp-paginator link[rel=next]"
+		},
+		{
+			"target": "list",
+			"name": "detailsUrls",
+			"type": "links",
+			"selector": ".offers .offer a.offer__title"
+		},
+		{
+			"name": "photoUrl",
+			"target": "detail",
+			"type": "attr",
+			"selector": ".owl-item img.img-responsive",
+			"attribute": "src"
+		},
+		{
+			"name": "title",
+			"target": "detail",
+			"type": "text",
+			"selector": ".page-header h1"
+		},
+		{
+			"name": "description",
+			"target": "detail",
+			"type": "text",
+			"selector": ".detail__desc"
+		},
+		{
+			"name": "price",
+			"target": "detail",
+			"type": "text",
+			"selector": ".detail__table__price"
+		}
+	],
+	"rootPages": [
+		{
+			"url": "https://www.cyklobazar.cz/kola",
+			"name": "Kola"
+		}
+	]
 }
 ###
 
