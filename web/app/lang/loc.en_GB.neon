@@ -9,12 +9,11 @@ homepage:
 		title: "BANOT"
 		description: """
 			Banot is a tool to help you search through and be
-			notifed about new items posted in online bazaars.
+			notified about new items posted in online bazaars.
 		"""
 		button_search: "Search"
 		button_show_report: "Show Report"
 
-#...
 	view_report:
 		title: "Show Report"
 
@@ -34,7 +33,7 @@ form_search:
 
 form_find_report:
 	email_placeholder: "alcapone@email.com"
-	name_placeholder: "silly-lion-12"
+	name_placeholder: "silly-lion-42"
 	open_button: "Show"
 
 add_report:
@@ -62,3 +61,6 @@ item_list:
 	add_report: "Turn on notifications"
 	no_results: "Hmm, I got nothing ... :("
 	load_more: "Load more"
+
+view_report:
+	page_heading: "Report"

@@ -7,7 +7,9 @@ layout:
 homepage:
 	banner:
 		title: "BANOT"
-		description: "CZ: Etincidunt labore dolor labore etincidunt etincidunt."
+		description: """
+			Banot je nástroj, který vám pomůže při vyhledávání ukradených předmětů v online bazarech. Umí vás také automaticky upozornit na nově přidané položky.
+		"""
 		button_search: "Hledej"
 		button_show_report: "Zobraz Report"
 
@@ -16,7 +18,13 @@ homepage:
 
 	story:
 		title: "Příběh"
-		abstract: "Etincidunt consectetur etincidunt ut velit neque aliquam est. Modi sed est modi etincidunt sit labore ut. Est voluptatem sit consectetur. Quaerat sit aliquam porro dolor eius. Sed dolore amet magnam tempora modi sit. Dolorem quaerat quisquam consectetur.\n\nPorro voluptatem eius quiquia eius aliquam ipsum. Quisquam quiquia sed velit tempora neque voluptatem. Non quiquia adipisci dolor. Quiquia eius quisquam sit adipisci amet eius. Quiquia quiquia sit quisquam magnam velit. Adipisci quiquia ipsum neque quiquia. Adipisci non numquam aliquam sit est amet.\n\nAliquam dolore numquam magnam quaerat non est aliquam. Consectetur modi porro dolore. Consectetur etincidunt dolore eius sed sit dolorem porro. Tempora quisquam velit ut. Amet dolor quiquia modi voluptatem. Aliquam quiquia quiquia velit quisquam quaerat velit amet. Velit neque ipsum aliquam dolorem.\n\nNumquam quiquia etincidunt ut tempora non consectetur quiquia. Ipsum modi quisquam neque. Dolor labore numquam consectetur sed labore adipisci. Magnam aliquam modi modi ipsum neque. Sed magnam amet neque velit magnam. Non dolorem dolorem sed. Adipisci est sit dolore magnam aliquam. Numquam dolor voluptatem velit quiquia numquam. Quaerat aliquam etincidunt tempora dolor adipisci velit."
+		abstract: """
+			Pořídil jsem si pěkné silniční kolo, abych na něm dojížděl do školy, do práce, a taky torchu sportoval. Netrvalo dlouho a z místa kde jsem své kolo pravidelně parkoval jsem zvedal jen zbytky mého drátěného zámku. Po příjezdu mi policisté nedali moc naděje a doporučili, abych „provedl vlastní pátrání“ a zkusil kolo najít online.
+
+			Ukázalo se, že existuje mnoho online tržišť, na které je denně publikováno spousta kol a člověk je muís procházet. V některých případech webové stránky umožňují uživateli přihlásit se k zasílání e-mailových oznámení, když je zveřejněna nová položka. Tato funkcionalita ale není standardem a na mnoha stránkách člověku nezbyde než ručně procházet stránku po stránce.
+
+			Možná je už příliš pozdě na nalezení toho mého, ale každý den jsou odcizena další a další kola. Navíc, kola nejsou jediným předmětem v hledáčku zlodějů: notebooky jsou kradeny z knihoven a kaváren, domy jsou vykrádány a existuje nemalá šance, že alespoň některé z těchto předmětů tak či onak skončí na nějakém online tržišti.
+		"""
 
 form_search:
 	search: "Hledej"
@@ -24,7 +32,7 @@ form_search:
 
 form_find_report:
 	email_placeholder: "alcapone@email.cz"
-	name_placeholder: "silly-lion-123"
+	name_placeholder: "silly-lion-42"
 	open_button: "Zobrazit"
 
 add_report:
@@ -46,9 +54,11 @@ form_add_report:
 		168_hours: "Jednou týdně"
 	save: Uložit
 
-
 item_list:
 	number_of_results: "{1} Celkem nalezen 1 předmět|[2,4] Celkem nalezeny %count% předměty|[5,Inf[ Celkem nalezeno %count% předmětů"
 	add_report: "Zapnout notifikace"
 	no_results: "Bohužel, pro tento dotaz nebyl nalezen žádný předmět."
 	load_more: "Více"
+
+view_report:
+	page_heading: "Report"
