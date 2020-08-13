@@ -1,4 +1,11 @@
-<?php declare(strict_types = 1);
+<?php
+
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
+
+declare(strict_types=1);
 
 namespace App\Api\Middlewares;
 
@@ -11,7 +18,6 @@ use stdClass;
 
 final class ApiKeyAuthenticationMiddleware implements IMiddleware
 {
-
 	/**
 	 * @param ApiRequest  $request
 	 * @param ApiResponse $response
@@ -52,5 +58,4 @@ final class ApiKeyAuthenticationMiddleware implements IMiddleware
 		return $response->withStatus(401)
 			->withHeader('Content-Type', 'application/json');
 	}
-
 }

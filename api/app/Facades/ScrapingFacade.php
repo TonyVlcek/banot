@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
 
 declare(strict_types=1);
 
@@ -15,13 +19,13 @@ use Psr\Log\LoggerInterface;
 
 class ScrapingFacade
 {
-
 	private LoggerInterface $logger;
 	private Orm $orm;
 	private ListPageQueue $listPageQueue;
 
 
-	public function __construct(LoggerInterface $logger, Orm $orm, ListPageQueue $listPageQueue) {
+	public function __construct(LoggerInterface $logger, Orm $orm, ListPageQueue $listPageQueue)
+	{
 		$this->logger = $logger;
 		$this->orm = $orm;
 		$this->listPageQueue = $listPageQueue;

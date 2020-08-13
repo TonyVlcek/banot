@@ -1,6 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
+
+declare(strict_types=1);
 
 namespace App\Api\Controllers\V1;
 
@@ -16,7 +21,6 @@ use Psr\Log\LoggerInterface;
  */
 abstract class BaseV1Controller extends BaseController
 {
-
 	protected SearchService $search;
 	protected LoggerInterface $logger;
 
@@ -26,5 +30,4 @@ abstract class BaseV1Controller extends BaseController
 		$this->search = $search;
 		$this->logger = $logger;
 	}
-
 }

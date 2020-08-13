@@ -1,4 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
+
+declare(strict_types=1);
 
 namespace App\Api\Controllers;
 
@@ -17,6 +24,7 @@ final class MetaController extends BaseController
 {
 	private ISchemaBuilder $schemaBuilder;
 
+
 	public function __construct(ISchemaBuilder $schemaBuilder)
 	{
 		$this->schemaBuilder = $schemaBuilder;
@@ -32,5 +40,4 @@ final class MetaController extends BaseController
 
 		return $response->writeJsonBody($openApi->toArray());
 	}
-
 }

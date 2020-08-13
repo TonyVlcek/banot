@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
 
 declare(strict_types=1);
 
@@ -13,6 +17,7 @@ abstract class AbstractIndex
 	protected SearchService $search;
 	protected LoggerInterface $logger;
 
+
 	public function __construct(SearchService $search, LoggerInterface $logger)
 	{
 		$this->search = $search;
@@ -20,7 +25,7 @@ abstract class AbstractIndex
 		$this->logger = $logger;
 	}
 
-	abstract static function getIndexName(): string;
+	abstract public static function getIndexName(): string;
 
 	public function indexDocument(array $data, ?string $id = null): string
 	{

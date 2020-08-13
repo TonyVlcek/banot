@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
 
 declare(strict_types=1);
 
@@ -10,10 +14,10 @@ use Nextras\Orm\Entity\IEntity;
 
 final class WebResourceRes implements SerializableResponse, FromOrmEntityResponse
 {
-
 	public int $id;
 	public string $url;
 	public string $name;
+
 
 	/**
 	 * @param IEntity|WebResource $webResource
@@ -27,5 +31,4 @@ final class WebResourceRes implements SerializableResponse, FromOrmEntityRespons
 
 		return $self;
 	}
-
 }

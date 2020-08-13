@@ -1,4 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
+
+declare(strict_types=1);
 
 namespace App\Search;
 
@@ -24,7 +31,7 @@ class SearchService
 		$this->logger = $logger;
 	}
 
-	public function setIndex(string $index)
+	public function setIndex(string $index): void
 	{
 		$this->index = $index;
 	}
@@ -33,7 +40,7 @@ class SearchService
 	{
 		$result = $this->elastic->get([
 			'index' => $this->index,
-			'id' => $id
+			'id' => $id,
 		]);
 
 		return GetResult::create($result);
@@ -57,13 +64,13 @@ class SearchService
 			$params['sort'] = $sort;
 		}
 
-		$this->logger->debug("Search by query executed.", $params);
+		$this->logger->debug('Search by query executed.', $params);
 		try {
 			$search = $this->elastic->search($params);
 
 			return SearchResult::create($search);
 		} catch (BadRequest400Exception $e) {
-			throw new ElasticSearchQueryFailedException("Something has gone wrong when searching", 0, $e);
+			throw new ElasticSearchQueryFailedException('Something has gone wrong when searching', 0, $e);
 		}
 	}
 
@@ -86,7 +93,7 @@ class SearchService
 			'size' => $size,
 		];
 
-		$this->logger->debug("Search by terms executed.", $params);
+		$this->logger->debug('Search by terms executed.', $params);
 		$search = $this->elastic->search($params);
 
 		return SearchResult::create($search);
@@ -96,14 +103,14 @@ class SearchService
 	{
 		$params = [
 			'index' => $this->index,
-			'body'  => $document
+			'body' => $document,
 		];
 
 		if ($id !== null) {
 			$params['id'] = $id;
 		}
 
-		$this->logger->debug("Document indexed.", $params);
+		$this->logger->debug('Document indexed.', $params);
 		return IndexResult::create($this->elastic->index($params));
 	}
 
@@ -113,11 +120,11 @@ class SearchService
 			'index' => $this->index,
 			'id' => $id,
 			'body' => [
-				'doc' => $doc
-			]
+				'doc' => $doc,
+			],
 		];
 
-		$this->logger->debug("Document updated.", $params);
+		$this->logger->debug('Document updated.', $params);
 		return UpdateResult::create($this->elastic->update($params));
 	}
 }

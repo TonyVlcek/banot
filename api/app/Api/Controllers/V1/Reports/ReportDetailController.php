@@ -1,4 +1,11 @@
-<?php declare(strict_types = 1);
+<?php
+
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
+
+declare(strict_types=1);
 
 namespace App\Api\Controllers\V1\Reports;
 
@@ -20,7 +27,6 @@ use App\Facades\ReportFacade;
  */
 final class ReportDetailController extends BaseV1Controller
 {
-
 	/** @var ReportFacade @inject */
 	public $reportFacade;
 
@@ -48,5 +54,4 @@ final class ReportDetailController extends BaseV1Controller
 
 		return ReportDetailRes::fromOrmEntity($report);
 	}
-
 }

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
 
 declare(strict_types=1);
 
@@ -44,10 +48,8 @@ class DeleteResourceController extends BaseV1Controller
 				->withCode(IResponse::S404_NOT_FOUND)
 				->withMessage($e->getMessage())
 				->withPrevious($e);
-
 		}
 
 		return $response->withStatus(IResponse::S204_NO_CONTENT);
 	}
-
 }

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
 
 declare(strict_types=1);
 
@@ -18,7 +22,6 @@ use Webmozart\Assert\Assert;
 
 class ItemFacade
 {
-
 	private const MAX_ITEMS_PER_PAGE = 1000; //TODO: env var? (upper limit is 10k https://discuss.elastic.co/t/how-to-elasticsearch-return-all-hits/133373/2)
 	private const SCRAPING_FREQUENCY = '24h'; //TODO: env var?
 

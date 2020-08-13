@@ -1,9 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
- * This file is part of the Banot project (https://banot.cz)
+ * This file is part of the API Service of the Banot project (https://banot.cz)
  * Copyright (c) 2020 Tony Vlček
  */
+
+declare(strict_types=1);
 
 namespace App\Services\MailSender;
 
@@ -17,7 +19,6 @@ use Nette\Mail\SendException;
 
 class MailSender
 {
-
 	private const WEB_BASE_URL = 'https://banot.cz'; //TODO: env variable?
 	private const FROM_EMAIL = 'Banot <info@banot.cz>';
 
@@ -25,7 +26,8 @@ class MailSender
 	private $latte;
 
 
-	public function __construct(string $tempDir, IMailer $mailer) {
+	public function __construct(string $tempDir, IMailer $mailer)
+	{
 		$this->mailer = $mailer;
 
 		$this->latte = new Engine();
@@ -84,5 +86,4 @@ class MailSender
 
 		$this->mailer->send($mail);
 	}
-
 }

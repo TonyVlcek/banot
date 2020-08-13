@@ -10,6 +10,7 @@ Usage: toolkit [COMMAND] [COMMAND OPTIONS]
 
 Command:
   composer                     Runs composer (prestissimo) in a docker container
+  linter                       Runs php linter to standardize check and fix codestyle
   cli                          Runs console of the api application
   build                        Builds the docker image
   es-setup                     Creates the items index in Elasticsearch and set thresholds
@@ -27,6 +28,10 @@ case ${COMMAND} in
 		docker run --rm -it -v $PWD:/app -u $(id -u):$(id -g) \
 			clevyr/prestissimo \
 			${ARGS} \
+		;;
+
+	linter )
+			docker exec -it api php /app/vendor/bin/ecs check /app/app/ --fix --config /app/php-linter.yml
 		;;
 
 	cli )

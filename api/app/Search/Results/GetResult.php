@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
 
 declare(strict_types=1);
 
@@ -7,10 +11,10 @@ namespace App\Search\Results;
 
 final class GetResult
 {
-
 	private string $id;
 	private bool $found;
 	private array $fields;
+
 
 	private function __construct()
 	{
@@ -41,5 +45,4 @@ final class GetResult
 	{
 		return $this->fields;
 	}
-
 }

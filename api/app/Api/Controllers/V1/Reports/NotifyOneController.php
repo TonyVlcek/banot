@@ -1,4 +1,11 @@
-<?php declare(strict_types = 1);
+<?php
+
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
+
+declare(strict_types=1);
 
 namespace App\Api\Controllers\V1\Reports;
 
@@ -22,10 +29,8 @@ use Nette\Mail\SendException;
  */
 final class NotifyOneController extends BaseV1Controller
 {
-
 	/** @inject */
 	public NotificationFacade $notificationFacade;
-
 
 
 	/**
@@ -50,7 +55,7 @@ final class NotifyOneController extends BaseV1Controller
 		} catch (SendException $e) {
 			throw ServerErrorException::create()
 				->withCode(ApiResponse::S500_INTERNAL_SERVER_ERROR)
-				->withMessage("Notification messages failed to send.")
+				->withMessage('Notification messages failed to send.')
 				->withPrevious($e);
 		}
 
@@ -61,5 +66,4 @@ final class NotifyOneController extends BaseV1Controller
 				->writeJsonBody(['newItems' => $newItems]);
 		}
 	}
-
 }

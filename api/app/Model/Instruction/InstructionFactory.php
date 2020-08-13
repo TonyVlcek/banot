@@ -1,4 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
+
+declare(strict_types=1);
 
 namespace App\Model\Instruction;
 
@@ -7,7 +14,6 @@ use App\Orm\Instructions\Instruction;
 
 class InstructionFactory
 {
-
 	public function createFromRequestDTO(InstructionRequest $instruction): Instruction
 	{
 		$newInstr = new Instruction();
@@ -20,5 +26,4 @@ class InstructionFactory
 
 		return $newInstr;
 	}
-
 }

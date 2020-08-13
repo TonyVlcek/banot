@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
 
 declare(strict_types=1);
 
@@ -11,7 +15,7 @@ use DateTimeInterface;
 
 class ItemsIndex extends AbstractIndex
 {
-	static function getIndexName(): string
+	public static function getIndexName(): string
 	{
 		return 'items';
 	}
@@ -26,9 +30,9 @@ class ItemsIndex extends AbstractIndex
 			$filter = [
 				'range' => [
 					'created' => [
-						'gte' => $createdAfter->format(DATE_ISO8601)
-					]
-				]
+						'gte' => $createdAfter->format(DATE_ISO8601),
+					],
+				],
 			];
 		}
 
@@ -40,8 +44,8 @@ class ItemsIndex extends AbstractIndex
 						'analyze_wildcard' => true,
 					],
 				],
-				'filter' => $filter
-			]
+				'filter' => $filter,
+			],
 		];
 
 		$result = $this->search->search($searchParams, '_score:desc', $from, $size);
@@ -72,7 +76,7 @@ class ItemsIndex extends AbstractIndex
 			'bool' => [
 				'filter' => [
 					['terms' => ['url.keyword' => $urls]], //TODO: PUT ignore_above 2083 * 4
-					['range' => ['lastScraped' => ['gte' => 'now-'.$scrapingThreshold]]],
+					['range' => ['lastScraped' => ['gte' => 'now-' . $scrapingThreshold]]],
 				],
 			],
 		], null, 0, $size);

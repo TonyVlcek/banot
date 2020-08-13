@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
 
 declare(strict_types=1);
 
@@ -9,7 +13,6 @@ use Contributte\Bootstrap\ExtraConfigurator;
 
 class Bootstrap
 {
-
 	public static function boot(): ExtraConfigurator
 	{
 		$configurator = new ExtraConfigurator();
@@ -31,5 +34,4 @@ class Bootstrap
 
 		return $configurator;
 	}
-
 }

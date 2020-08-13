@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
 
 declare(strict_types=1);
 
@@ -19,7 +23,6 @@ use Psr\Log\LoggerInterface;
 
 class WebResourceFacade
 {
-
 	private LoggerInterface $logger;
 
 	private Orm $orm;
@@ -40,7 +43,6 @@ class WebResourceFacade
 		$this->instructionFactory = $instructionFactory;
 		$this->rootPageFactory = $rootPageFactory;
 	}
-
 
 	/**
 	 * @throws EntityNotFoundException
@@ -98,8 +100,7 @@ class WebResourceFacade
 
 		try {
 			return $this->orm->webResource->persistAndFlush($resource);
-		}
-		catch (UniqueConstraintViolationException $e) {
+		} catch (UniqueConstraintViolationException $e) {
 			throw new EntityNotCreatedException($e->getMessage(), $e->getCode(), $e);
 		}
 	}

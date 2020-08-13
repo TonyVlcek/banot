@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
 
 declare(strict_types=1);
 
@@ -16,14 +20,14 @@ use Psr\Log\LoggerInterface;
 
 class NotificationFacade
 {
-
 	private LoggerInterface $logger;
 	private Orm $orm;
 	private ItemsIndex $itemsIndex;
 	private MailSender $mailSender;
 
 
-	public function __construct(LoggerInterface $logger, Orm $orm, ItemsIndex $itemsIndex, MailSender $mailSender) {
+	public function __construct(LoggerInterface $logger, Orm $orm, ItemsIndex $itemsIndex, MailSender $mailSender)
+	{
 		$this->logger = $logger;
 		$this->orm = $orm;
 		$this->itemsIndex = $itemsIndex;
@@ -78,7 +82,7 @@ class NotificationFacade
 		return $items->getTotal();
 	}
 
-	private function markReportAsNotified(Report $report)
+	private function markReportAsNotified(Report $report): void
 	{
 		$now = new DateTimeImmutable('now');
 

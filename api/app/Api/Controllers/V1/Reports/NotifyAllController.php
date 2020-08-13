@@ -1,4 +1,11 @@
-<?php declare(strict_types = 1);
+<?php
+
+/**
+ * This file is part of the API Service of the Banot project (https://banot.cz)
+ * Copyright (c) 2020 Tony Vlček
+ */
+
+declare(strict_types=1);
 
 namespace App\Api\Controllers\V1\Reports;
 
@@ -33,7 +40,7 @@ final class NotifyAllController extends BaseV1Controller
 		} catch (SendException $e) {
 			throw  ServerErrorException::create()
 				->withCode(ApiResponse::S500_INTERNAL_SERVER_ERROR)
-				->withMessage("Notification message(s) failed to send.")
+				->withMessage('Notification message(s) failed to send.')
 				->withPrevious($e);
 		}
 
