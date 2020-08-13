@@ -12,6 +12,7 @@ use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
 use App\Api\Controllers\V1\BaseV1Controller;
 use App\Api\Requests\ReportRequest;
+use App\Api\Responses\ReportDetailRes;
 use App\Facades\ReportFacade;
 use InvalidArgumentException;
 use Nette\Mail\SendException;
@@ -35,18 +36,20 @@ final class CreateReportController extends BaseV1Controller
 	 * @Method("POST")
 	 * @RequestBody(entity="App\Api\Requests\ReportRequest")
 	 */
-	public function create(ApiRequest $request, ApiResponse $response): ApiResponse
+	public function create(ApiRequest $request, ApiResponse $response): ReportDetailRes
 	{
 		/** @var ReportRequest $report */
 		$report = $request->getEntity();
 
 		try {
-			$this->reportFacade->createReport(
+			$report = $this->reportFacade->createReport(
 				$report->email,
 				$report->query,
 				$report->frequency,
 				$report->created,
 			);
+
+			return ReportDetailRes::fromOrmEntity($report);
 		} catch (SendException $e) {
 			throw ServerErrorException::create()
 				->withCode(ApiResponse::S500_INTERNAL_SERVER_ERROR)
@@ -56,7 +59,5 @@ final class CreateReportController extends BaseV1Controller
 				->withCode(ApiResponse::S422_UNPROCESSABLE_ENTITY)
 				->withMessage($e->getMessage());
 		}
-
-		return $response->withStatus(ApiResponse::S201_CREATED);
 	}
 }
