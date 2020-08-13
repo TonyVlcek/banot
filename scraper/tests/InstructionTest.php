@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Banot\Scraper\Tests;
 
-use Banot\Scraper\Parser\Instruction;
-use Banot\SDK\Model\Resources\Instruction as SDKInstruction;
+use Banot\Scraper\Parser;
+use Banot\SDK\Model\WebResources;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -16,10 +16,10 @@ class InstructionTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'When extracting by attribute(s) the $attr argument must be specified.'
+            'When extracting by attribute(s) the "attribute" argument must be specified.'
         );
 
-        new Instruction('name', Instruction::TYPE_ATTR, 'selector');
+        new Parser\Instruction('name', Parser\Instruction::TYPE_ATTR, 'selector');
     }
 
     /** @test */
@@ -27,21 +27,22 @@ class InstructionTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new Instruction('name', 'some-non-existent-type', 'selector');
+        new Parser\Instruction('name', 'some-non-existent-type', 'selector');
     }
 
     /** @test */
     public function testFromObject(): void
     {
         $data['name'] = 'name';
-        $data['type'] = Instruction::TYPE_ATTR;
+        $data['target'] = 'detail';
+        $data['type'] = Parser\Instruction::TYPE_ATTR;
         $data['selector'] = 'selector';
         $data['attribute'] = 'attr';
 
-        $sdkInstruction = SDKInstruction::create($data);
+        $sdkInstruction = WebResources\Instruction::create($data);
 
-        $i1 = new Instruction($data['name'], $data['type'], $data['selector'], $data['attribute']);
-        $i2 = Instruction::from($sdkInstruction);
+        $i1 = new Parser\Instruction($data['name'], $data['type'], $data['selector'], $data['attribute']);
+        $i2 = Parser\Instruction::from($sdkInstruction);
 
         $this->assertEquals($i1, $i2);
     }

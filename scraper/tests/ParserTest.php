@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Banot\Scraper\Tests;
 
-use Banot\Scraper\Parser\Instruction;
+use Banot\SDK\Model\WebResources;
 use Banot\Scraper\Parser\Parser;
+use Banot\Scraper\Parser\Instruction;
 use PHPUnit\Framework\TestCase;
 
 class ParserTest extends TestCase
@@ -17,7 +18,14 @@ class ParserTest extends TestCase
 
         $html = "<span data-value='{$valueToBeExtracted}'></span>";
 
-        $instruction = new Instruction('name', Instruction::TYPE_ATTR, 'span', 'data-value');
+        $instruction = WebResources\Instruction::create([
+            'target' => 'detail',
+            'name' => 'name',
+            'type' => Instruction::TYPE_ATTR,
+            'selector' => 'span',
+            'attribute' => 'data-value'
+        ]);
+
         $parser = new Parser([$instruction]);
 
         $this->assertSame($parser->parse($html, '')['name'], $valueToBeExtracted);
@@ -32,7 +40,13 @@ class ParserTest extends TestCase
         $html .= "<span data-value='{$valuesToBeExtracted[1]}'></span>";
         $html .= "<span data-value='{$valuesToBeExtracted[2]}'></span>";
 
-        $instruction = new Instruction('name', Instruction::TYPE_ATTRS, 'span', 'data-value');
+        $instruction = WebResources\Instruction::create([
+            'target' => 'detail',
+            'name' => 'name',
+            'type' => Instruction::TYPE_ATTRS,
+            'selector' => 'span',
+            'attribute' => 'data-value'
+        ]);
         $parser = new Parser([$instruction]);
 
         $this->assertSame($parser->parse($html, '')['name'], $valuesToBeExtracted);
@@ -45,7 +59,12 @@ class ParserTest extends TestCase
         $link = '/some/url/123.html';
         $html = "<a href='{$link}'>Link</a>";
 
-        $instruction = new Instruction('name', Instruction::TYPE_LINK, 'a');
+        $instruction = WebResources\Instruction::create([
+            'target' => 'detail',
+            'name' => 'name',
+            'type' => Instruction::TYPE_LINK,
+            'selector' => 'a',
+        ]);
         $parser = new Parser([$instruction]);
 
         $this->assertSame($parser->parse($html, $baseUrl), ['name' => $baseUrl.$link]);
@@ -60,7 +79,12 @@ class ParserTest extends TestCase
         $html .= "<a href='{$links[1]}'>Link</a>";
         $html .= "<a href='{$links[2]}'>Link</a>";
 
-        $instruction = new Instruction('name', Instruction::TYPE_LINKS, 'a');
+        $instruction = WebResources\Instruction::create([
+            'target' => 'detail',
+            'name' => 'name',
+            'type' => Instruction::TYPE_LINKS,
+            'selector' => 'a',
+        ]);
         $parser = new Parser([$instruction]);
 
         $this->assertSame(
@@ -74,7 +98,12 @@ class ParserTest extends TestCase
     {
         $html = "<span>Non sed <b>quisquam</b> ut labore.</span>";
 
-        $instruction = new Instruction('name', Instruction::TYPE_TEXT, 'span');
+        $instruction = WebResources\Instruction::create([
+            'target' => 'detail',
+            'name' => 'name',
+            'type' => Instruction::TYPE_TEXT,
+            'selector' => 'span',
+        ]);
         $parser = new Parser([$instruction]);
 
         $this->assertSame($parser->parse($html, ''), ['name' => 'Non sed quisquam ut labore.']);
@@ -87,7 +116,12 @@ class ParserTest extends TestCase
         $html .= "<span>Non sed <b>quisquam</b> ut labore.</span>";
         $html .= "<span>Non sed <b>quisquam</b> ut labore.</span>";
 
-        $instruction = new Instruction('name', Instruction::TYPE_TEXTS, 'span');
+        $instruction = WebResources\Instruction::create([
+            'target' => 'detail',
+            'name' => 'name',
+            'type' => Instruction::TYPE_TEXTS,
+            'selector' => 'span',
+        ]);
         $parser = new Parser([$instruction]);
 
         $this->assertSame(
