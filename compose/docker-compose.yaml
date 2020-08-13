@@ -13,15 +13,12 @@ services:
             timeout: 10s
             retries: 5
         volumes:
-            - ${ROOT_SCRAPER}/rabbitmq-data:/var/lib/rabbitmq
+            - ./rabbitmq-data:/var/lib/rabbitmq
 
     list-scraper:
         image: banot/scraper:latest
-        build: .
-        entrypoint:
-            - ./bin/consume
-            - list-pages
-            - -vv
+        build: ${ROOT_SCRAPER}
+        command: ["./.docker/scripts/wait-for-it.sh", "rabbitmq:5672", "--", "./bin/consume", "list-pages", "-vv"]
         env_file:
             - ${ROOT_SCRAPER}/.env
         environment:
@@ -37,11 +34,8 @@ services:
 
     detail-scraper:
         image: banot/scraper:latest
-        build: .
-        entrypoint:
-            - ./bin/consume
-            - detail-pages
-            - -vv
+        build: ${ROOT_SCRAPER}
+        command: ["./.docker/scripts/wait-for-it.sh", "rabbitmq:5672", "--", "./bin/consume", "detail-pages", "-vv"]
         env_file:
             - ${ROOT_SCRAPER}/.env
         environment:

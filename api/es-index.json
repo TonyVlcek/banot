@@ -1,0 +1,67 @@
+{
+	"settings": {
+		"number_of_shards": 1,
+		"number_of_replicas": 1
+	},
+	"mappings": {
+		"properties": {
+			"created": {
+				"type": "date"
+			},
+			"description": {
+				"type": "text",
+				"fields": {
+					"keyword": {
+						"type": "keyword",
+						"ignore_above": 256
+					}
+				}
+			},
+			"lastScraped": {
+				"type": "date"
+			},
+			"photoUrl": {
+				"type": "text",
+				"fields": {
+					"keyword": {
+						"type": "keyword",
+						"ignore_above": 256
+					}
+				}
+			},
+			"price": {
+				"type": "long"
+			},
+			"published": {
+				"type": "date"
+			},
+			"query": {
+				"type": "text",
+				"fields": {
+					"keyword": {
+						"type": "keyword",
+						"ignore_above": 256
+					}
+				}
+			},
+			"title": {
+				"type": "text",
+				"fields": {
+					"keyword": {
+						"type": "keyword",
+						"ignore_above": 512
+					}
+				}
+			},
+			"url": {
+				"type": "text",
+				"fields": {
+					"keyword": {
+						"type": "keyword",
+						"ignore_above": 2083
+					}
+				}
+			}
+		}
+	}
+}

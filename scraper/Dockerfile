@@ -11,4 +11,5 @@ COPY ./.docker/xdebug/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 COPY . /usr/src/scraper
 WORKDIR /usr/src/scraper
-#CMD [ "./bin/consumer", "run", "-vv"]
+
+RUN chmod +x ./.docker/scripts/wait-for-it.sh ./bin/consume
